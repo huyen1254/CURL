@@ -29,7 +29,6 @@ class Factory extends Model
             'path' => $dataPage['path'],
             'title' => $title,
             'content' => $content,
-
             'date' => $date
         ];
 
@@ -38,6 +37,6 @@ class Factory extends Model
 
     public function addToTheDatabase($data)
     {
-        $this->model->addPage($data['path'], $data['host'], $data['title'], $data['content'], $data['image'], $data['date']);
+        $this->model->addPage($data['path'], $data['host'], $data['title'], $data['content'], $data['date']);
     }
 }
