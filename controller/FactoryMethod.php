@@ -13,7 +13,7 @@ class Factory extends Model
             'vnexpress', 'vietnamnet', 'dantri'
         );
          //set Value for Pages
-        foreach ($keyPage as $param) {
+        foreach ($keyPage as $param => $page) {
             if (preg_match("/$param/", $dataPage['host'])) {
                 $page->html = $dataPage['html'];
                 $website = $page->makeWebsite($param);
