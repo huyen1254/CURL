@@ -8,8 +8,7 @@ use controller\controller;
 use controller\Factory;
 use Factory\MatchesData;
 
-class Application
-{
+class FactoryProducer
     public function __construct()
     {
         //Show Index
