@@ -10,19 +10,19 @@ use Factory\Vnexpress;
 
 class PagesFactory
 {
-    public $html;
+    
 
     function makeWebsite(string $param)
     {
         switch (strtolower($param)) {
             case 'vnexpress':
-                return new Vnexpress($this->html);
+                return new Vnexpress;
                 break;
             case 'vietnamnet':
-                return new Vietnamnet($this->html);
+                return new Vietnamnet;
                 break;
             case 'dantri':
-                return new Dantri($this->html);
+                return new Dantri;
                 break;
             default:
                 return null;
