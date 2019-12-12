@@ -1,5 +1,5 @@
 <?php
-class Vnexpress extends Controller
+class Vnexpress extends AbstractFactory
 {
     public function getTitle()
     {
