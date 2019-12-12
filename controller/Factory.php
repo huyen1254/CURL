@@ -5,7 +5,7 @@ namespace controller;
 use model\ControlData;
 
 
-class Factory extends ControllData
+class Factory extends Model
 {
     public function getFactory($dataPage, PagesFactory $page)
     {   
