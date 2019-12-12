@@ -1,6 +1,6 @@
 <?php
 
-namespace Site;
+namespace Factory;
 
 use Factory\MatchesData;
 use Factory\Dantri;
