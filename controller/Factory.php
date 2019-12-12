@@ -3,7 +3,7 @@
 namespace controller;
 
 use model\ControlData;
-use Site\PagesFactory;
+
 
 class Factory extends ControllData
 {
