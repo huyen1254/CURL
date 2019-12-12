@@ -10,7 +10,10 @@ class Factory extends Model
     public function getFactory($dataPage, PagesFactory $page)
     {   
         $keyPage = array(
-            'vnexpress', 'vietnamnet', 'dantri'
+            'vnexpress' => new Vnexpress(),
+            'vietnamnet' => new Vietnamne(),
+            'dantri' => new Dantri()
+            
         );
          //set Value for Pages
         foreach ($keyPage as $param => $page) {
