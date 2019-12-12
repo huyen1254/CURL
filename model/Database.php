@@ -1,33 +1,29 @@
 <?php
 
-class Database
+namespace model;
+
+use Exception;
+
+class Model
 {
-    private $mysql_host;
-    private $mysql_username;
-    private $mysql_password;
-    private $mysql_database;
-    function __construct($mysql_host, $mysql_username, $mysql_password, $mysql_database)
+    /**
+     * @param $db Connection database
+     */
+    public function __construct($db)
     {
-        $this->mysql_host = $mysql_host;
-        $this->mysql_username = $mysql_username;
-        $this->mysql_password = $mysql_password;
-        $this->mysql_database = $mysql_database;
+        try {
+            $this->db = $db;
+        } catch (Exception $e) {
+            exit('Database connection could not be established.');
+        }
     }
-    function mysqlConnect()
+
+    public function addPage($path, $host, $title, $content, $image, $date)
     {
-        return mysqli_connect($this->mysql_host, $this->mysql_username, $this->mysql_password, $this->mysql_database);
-    }
-    function isConnectDatabase()
-    {
-        if (!$this->mysqlConnect()) {
-            echo "Error: Unable to connect to MySQL" . PHP_EOL;
-            echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
-            echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
-            return false;
-        } else {
-            mysqli_set_charset($this->mysqlConnect(), 'utf8');
-            return true;
+        $sql = "INSERT IGNORE INTO pages (path, host, title, content, download_time) VALUES (\"" . mysqli_real_escape_string($this->db, $path) . "\",\"" . mysqli_real_escape_string($this->db, $host) . "\" , \"" . mysqli_real_escape_string($this->db, $title) . "\", \"" . mysqli_real_escape_string($this->db, $content) . "\",  \"" . mysqli_real_escape_string($this->db, $date) . "\")";
+
+        if (!mysqli_query($this->db, $sql)) {
+            die("<br>Error: Unable to perform Insert Query<br>");
         }
     }
 }
-   
