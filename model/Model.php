@@ -18,7 +18,7 @@ class Model
         }
     }
 
-    public function addPage($path, $host, $title, $content, $image, $date)
+    public function addPage($path, $host, $title, $content, $date)
     {
         $sql = "INSERT IGNORE INTO pages (path, host, title, content, download_time) VALUES (\"" . mysqli_real_escape_string($this->db, $path) . "\",\"" . mysqli_real_escape_string($this->db, $host) . "\" , \"" . mysqli_real_escape_string($this->db, $title) . "\", \"" . mysqli_real_escape_string($this->db, $content) . "\",  \"" . mysqli_real_escape_string($this->db, $date) . "\")";
 
