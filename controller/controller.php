@@ -4,7 +4,7 @@ class Controller
 {
     public function index()
     {
-        include "/view/index.php";
+        include App . "/view/index.php";
     
     }
 }
