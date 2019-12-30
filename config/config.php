@@ -1,7 +1,7 @@
 <?php
- $hostname = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "phpCrawler";
-    $db = new PDO('mysqli:dbname='.$dbname.'host='.$hostname,$username,$password);
+//define database
+ define("DB_HOST", "localhost");
+ define("DB_USER", "root");
+ define("DB_PASS", "");
+ define("DB_NAME", "phpCrawler");
 ?>
