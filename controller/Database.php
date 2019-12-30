@@ -4,42 +4,69 @@ namespace Controllers;
 
 use Controller\Controller;
 use FactoryMethod\Pagesfactory\PagesFactory;
+use lib\Curl;
 
 class FactoryController extends Controller
 {
-    public function getFactory($dataPage, PagesFactory $page)
+   function __construct(Curl $curl, Database $databases, $webPages)
     {
-        $keyPage = array(
-            'vnexpress', 'vietnamnet', 'dantri'
-        );
-
-        foreach ($keyPage as $param) {
-            if (preg_match("/$param/", $dataPage['host'])) {
-                $page->html = $dataPage['html'];
-                $website = $page->makeWebsite($param);
-
-                $title = $website->getTitle();
-                $date = $website->getDate();
-              
-                $content = $website->getContent();
-            }
-        }
-        echo '<h2> ' . $title . '</h2> ' . $date  . '><br>' . $content;
-
-        $data = [
-            'host' => $dataPage['host'],
-            'path' => $dataPage['path'],
-            'title' => $title,
-            'content' => $content,
-          
-            'date' => $date
-        ];
-
-        return $data;
+        $this->curl = $curl;
+        $this->database = $databases;
+        $this->allWebPages = $webPages;
     }
 
-    public function addToTheDatabase($data)
+    public function getConnectDatabase()
     {
-        $this->model->addPage($data['path'], $data['host'], $data['title'], $data['content'], $data['image'], $data['date']);
+        return $this->database->mysqlConnect();
+    }
+
+    public function parsePage($url)
+    {
+        $mysql_conn = $this->getConnectDatabase();
+        //Parse URL and get Components
+        $url_components = parse_url($url);
+        if ($url_components === false) {
+            die('Unable to Parse URL');
+        }
+        $url_host = $url_components['host'];
+        $url_path = '';
+        if (array_key_exists('path', $url_components) == false) {
+            //If not a valid path, mark as done
+            $query = "INSERT INTO pages (path) VALUES (\"" . mysqli_real_escape_string($mysql_conn, $url) . "\")";
+            if (!mysqli_query($mysql_conn, $query)) {
+                die("Error: Unable to perform Download Time Update Query (path)\n");
+            }
+            return false;
+        } else {
+            $url_path = $url_components['path'];
+        }
+        //Download Page
+        $contents = $this->curl->_http($url);
+
+        //Check Status of Request 
+        if ($contents['headers']['status_info'][1] != 200) {
+            //If not ok, mark as downloaded but skip
+            $query = "INSERT INTO pages (path) VALUES (\"" . mysqli_real_escape_string($mysql_conn, $url_path) . "\",)";
+            if (!mysqli_query($mysql_conn, $query)) {
+                die("Error: Unable to perform Update Query (http status)\n");
+            }
+            return false;
+        }
+
+        //Parse Contents
+        $pages = $this->allWebPages;
+
+        //set Value for Pages
+        foreach ($pages as $key => $page) {
+            if (preg_match("/$key/", $url_host)) {
+                $page->html = $contents['body'];
+                $page->connectDB = $mysql_conn;
+                $page->host = $url_host;
+                $page->path = $url_path;
+                $page->Show();
+            }
+        }
+
+        return true;
     }
 }
