@@ -1,6 +1,6 @@
 <?php
 
-namespace Controller;
+namespace controller;
 
 use Controller\Controller;
 use FactoryMethod\InterfaceData;
