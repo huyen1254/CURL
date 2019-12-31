@@ -23,7 +23,10 @@ class Factory
                 $crawler = new Crawler($curl);
                 $dataParse = $crawler->parsePage($urlPages);
                 $factory = new PagesFactory();
-                $WebPage = new HomeController();
+                $database = new Database();
+                $data = $database-> getFactory($dataParse,$factory);
+                $database -> addToTheDatabase($data);
+                
             }
         }
     }
