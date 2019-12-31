@@ -1,13 +1,13 @@
 <?php
 
-namespace Controllers;
+namespace controllers;
 
 class HomeController
 {
     public function index()
     {
        
-        include  "/View/index.php";
+        include "/View/index.php";
         
     }
 }
