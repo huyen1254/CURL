@@ -1,12 +1,13 @@
 <?php
 
-namespace Controllers;
+namespace Controller;
 
 use Controller\Controller;
+use FactoryMethod\InterfaceData;
 use FactoryMethod\Pagesfactory\PagesFactory;
 use lib\Curl;
 
-class FactoryController extends Controller
+class Database extends Controller implements InterfaceData
 {
    function __construct(Curl $curl, Database $databases, $webPages)
     {
