@@ -31,16 +31,6 @@ class Database extends Controller implements InterfaceData
         }
         $url_host = $url_components['host'];
         $url_path = '';
-        if (array_key_exists('path', $url_components) == false) {
-            //If not a valid path, mark as done
-            $query = "INSERT INTO pages (path) VALUES (\"" . mysqli_real_escape_string($mysql_conn, $url) . "\")";
-            if (!mysqli_query($mysql_conn, $query)) {
-                die("Error: Unable to perform Download Time Update Query (path)\n");
-            }
-            return false;
-        } else {
-            $url_path = $url_components['path'];
-        }
         //Download Page
         $contents = $this->curl->_http($url);
         //Parse Contents
