@@ -1,11 +1,7 @@
 {
-    "require-dev": {
-        "phpunit/phpunit": "^8.3",
-        "mockery/mockery": "^1.2"
-    },
     "autoload": {
         "psr-4": {
-            "": "Application/"
+            "": "Database/"
         }
     }
 }
