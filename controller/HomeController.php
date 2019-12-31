@@ -7,7 +7,7 @@ class HomeController
     public function index()
     {
        
-        include "/View/index.php";
+        include APP . "/View/index.php";
         
     }
 }
