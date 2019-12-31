@@ -5,7 +5,6 @@ namespace Controller;
 use Controller\Controller;
 use FactoryMethod\InterfaceData;
 use FactoryMethod\Pagesfactory\PagesFactory;
-use lib\Curl;
 
 class Database extends Controller implements InterfaceData
 {
@@ -24,6 +23,7 @@ class Database extends Controller implements InterfaceData
                 $content = $website->getContent();
             }
         }
+        // echo data
         echo '<h2> ' . $title . '</h2> ' . $date  . '><br>' . $content;
 
         $data = [
@@ -39,6 +39,6 @@ class Database extends Controller implements InterfaceData
 
     public function addToTheDatabase($data)
     {
-        $this->model->addPage($data['path'], $data['host'], $data['title'], $data['content'], $data['image'], $data['date']);
+        $this->model->addPage($data['path'], $data['host'], $data['title'], $data['content'], $data['date']);
     }
 }
