@@ -9,44 +9,36 @@ use lib\Curl;
 
 class Database extends Controller implements InterfaceData
 {
-   function __construct(Curl $curl, Database $databases, $webPages)
+    public function getFactory($dataPage, PagesFactory $page)
     {
-        $this->curl = $curl;
-        $this->database = $databases;
-        $this->allWebPages = $webPages;
-    }
+        $keyPage = array(
+            'vnexpress', 'vietnamnet', 'dantri'
+        );
 
-    public function getConnectDatabase()
-    {
-        return $this->database->mysqlConnect();
-    }
-
-    public function parsePage($url)
-    {
-        $mysql_conn = $this->getConnectDatabase();
-        //Parse URL and get Components
-        $url_components = parse_url($url);
-        if ($url_components === false) {
-            die('Unable to Parse URL');
-        }
-        $url_host = $url_components['host'];
-        $url_path = '';
-        //Download Page
-        $contents = $this->curl->_http($url);
-        //Parse Contents
-        $pages = $this->allWebPages;
-
-        //set Value for Pages
-        foreach ($pages as $key => $page) {
-            if (preg_match("/$key/", $url_host)) {
-                $page->html = $contents['body'];
-                $page->connectDB = $mysql_conn;
-                $page->host = $url_host;
-                $page->path = $url_path;
-                $page->Show();
+        foreach ($keyPage as $param) {
+            if (preg_match("/$param/", $dataPage['host'])) {
+                $page->html = $dataPage['html'];
+                $website = $page->makeWebsite($param);
+                $title = $website->getTitle();
+                $date = $website->getDate();
+                $content = $website->getContent();
             }
         }
+        echo '<h2> ' . $title . '</h2> ' . $date  . '><br>' . $content;
 
-        return true;
+        $data = [
+            'host' => $dataPage['host'],
+            'path' => $dataPage['path'],
+            'title' => $title,
+            'content' => $content,
+            'date' => $date
+        ];
+
+        return $data;
+    }
+
+    public function addToTheDatabase($data)
+    {
+        $this->model->addPage($data['path'], $data['host'], $data['title'], $data['content'], $data['image'], $data['date']);
     }
 }
