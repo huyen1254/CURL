@@ -1,6 +1,6 @@
 <?php
-namespace Controller;
-use Controllers\HomeController;
+namespace controller;
+use controllers\HomeController;
 use FactoryMethod\Pagesfactory\PagesFactory;
 use lib\Crawler;
 use lib\Curl;
