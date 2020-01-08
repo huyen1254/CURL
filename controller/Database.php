@@ -27,7 +27,6 @@ class Database extends Controller implements InterfaceData
         echo '<h2> ' . $title . '</h2> ' . $date  . '><br>' . $content;
 
         $data = [
-            'host' => $dataPage['host'],
             'path' => $dataPage['path'],
             'title' => $title,
             'content' => $content,
@@ -39,6 +38,6 @@ class Database extends Controller implements InterfaceData
 
     public function addToTheDatabase($data)
     {
-        $this->model->addPage($data['path'], $data['host'], $data['title'], $data['content'], $data['date']);
+        $this->model->addPage($data['path'], $data['title'], $data['content'], $data['date']);
     }
 }
