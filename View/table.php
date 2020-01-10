@@ -3,14 +3,16 @@
     <thead>
         <tr>
             <th>MSSV</th>
-            <th>Họ & Tên</th>
-            <th>Ngày Sinh</th>
-            <th>Điểm Trung Bình</th>
+            <th>Path</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th >Date</th>
         </tr>
     </thead>
     <tbody>
         
             <tr>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>
