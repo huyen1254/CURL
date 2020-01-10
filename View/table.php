@@ -6,7 +6,7 @@
             <th>Path</th>
             <th>Title</th>
             <th>Content</th>
-            <th >Date</th>
+            <th>Date</th>
         </tr>
     </thead>
     <tbody>
